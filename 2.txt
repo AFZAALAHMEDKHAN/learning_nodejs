@@ -1,0 +1,59 @@
+HTTP module
+
+in the coming slides, u will notice that
+all our code is basically around server
+setup, which will widely use http module
+
+
+const http = require('http')
+
+const server = http.createServer((req,res)=>{
+    if(req.url === '/') {
+        res.end('Welcome to our home page')
+    }
+
+    if (req.url === '/blue') {
+        res.end("Hmmm, came to the right place")
+    }
+})
+
+server.listen(5000)
+
+//req represents the incoming request
+//res is the response that we are sending back
+
+
+when we install node we automatically install npm(node package manager)
+
+reusable code === package
+
+
+npm i <packageName>   ==== Local dependency
+
+npm i(or install) -g <packageName> == global dependency
+
+
+package.json = manifest file (stores important info about project/package)
+creation:
+manual approach (creake package.json in the root, crate properties etc)
+npm init (step by step, press enter to skip)
+npm init -y
+
+package.json also lists packages required for the project to run(dependecies)
+
+all the dependecies are stored in the
+node_modules folder
+
+
+once the package is installed, u can use:
+const _ = require('lodash')
+
+to use the methods and things related with that project
+
+Example:
+const _ = require('lodash')
+
+const items = [1,[2,[3,[4]]]]
+const newItems = _.flattenDeep(items)
+console.log(newItems);
+

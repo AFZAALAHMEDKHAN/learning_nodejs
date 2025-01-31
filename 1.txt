@@ -1,0 +1,364 @@
+Node js????
+
+Nodejs is an environment to run JS outside browser
+
+created in 2009 and built on Chrome's V8 JS engine
+
+---
+
+Browser js vs Node js
+
+When working with Node js , u have NO access to browser apis.
+
+1. DOM 1. No DOM
+2. Window 2. No Window
+3. Interactive Apps 3. Server Side Apps
+4. No filesystem 4. Filesystem
+5. Fragmentation 5. Versions
+6. ES6 modules 6. CommonJS
+
+Under the hood, Node js uses commonjs library
+for the modules
+
+---
+
+LTS (long term support versions) are preferred for
+everything including production
+
+---
+
+REPL, CLI
+
+REPL :
+just type node
+and ctrl+c to exit
+
+---
+
+ctrl + ` is the shortcut for terminal
+
+---
+global variables in node
+
+Globals - No Window Object
+
+some of the global variables:
+__dirname - path too current directory
+__filename - filename 
+require - function to use modules(CommonJS)
+module - info about current module (file)
+process - info about env where the progam is being executed
+
+
+how can this be used: 
+just a small example : 
+
+console.log(__dirname)
+console.log(__filename);
+console.log(module);
+console.log(process);
+
+can also use setInterval() and setTimeout()
+example:
+setInterval(()=>{
+    console.log('Hello world')
+},1000)
+This code snippet uses JavaScript's setInterval() function
+ to execute a block of code at regular intervals 
+ (in milliseconds).
+
+
+ The above code is an arrow function u can also do the same using this:
+ setInterval(function () {
+  console.log("Hello World");
+}, 2000);
+
+ or
+
+function printMessage() {
+  console.log("Hello, this message repeats every 2 seconds!");
+}
+
+setInterval(printMessage, 2000);
+
+
+Now, how to stop?
+use setTimeout() :
+example 
+let intervalId = setInterval(() => {
+    console.log('Hello world');
+}, 1000);
+
+// Stop the interval after 5 seconds
+setTimeout(() => {
+    clearInterval(intervalId);
+    console.log('Interval cleared');
+}, 5000);
+
+so after five seconds it will stop
+
+---
+
+Modules 
+
+code will be divided into modules
+
+Feature	  -   ES6 Modules	-    CommonJS
+Syntax	  -  import/export	-   require/module.exports
+Loading Type -	Static (compile-time)	 - Dynamic (runtime)
+Browser Support -	Native in modern browsers	- Needs bundlers (e.g., Webpack)
+Tree Shaking -	Supported  - 	Not supported
+
+---
+
+using es6 modules example:
+
+// file: math.js
+export default function multiply(a, b) {
+  return a * b;
+}
+
+export const PI = 3.14;
+
+//remember If you want to make parts of the main.js file
+ accessible to other JavaScript files, 
+ you need to explicitly export them. 
+
+// file: main.js
+import multiply, { PI } from './math.js';
+
+console.log(multiply(2, 3)); // 6
+console.log(PI); // 3.14
+
+To use ES6 modules in the browser:
+
+Use the type="module" attribute in the <script> tag:
+<script type="module" src="main.js"></script>
+
+---
+
+
+In CommonJS, every file is module by default
+Modules - Encapsulated Code (only share minimum)
+
+ex:
+
+//names.js
+const john = "john"
+const peter = "peter"
+const Afzaal = "AFzaal Ahmed Khan"
+
+module.exports = {john,peter}
+
+//function.js
+const sayHi = (name) => {
+    console.log(`Hello ${name}, what u doing??`);
+}
+
+module.exports = sayHi
+
+//app.js
+const names = require('./names.js')
+const sayHi = require('./function.js')
+
+sayHi(names.john)
+sayHi(names.peter)
+
+console.log(names);
+
+
+or 
+
+const names = require('./names.js')
+const ftogreetname = require('./function.js')
+
+//sayHi(Afzaal)
+ftogreetname(names.john)
+ftogreetname(names.peter)
+ftogreetname("Afzaal")
+
+console.log(names);
+
+
+---
+
+
+u can also do export as u go 
+
+example:
+module.exports.items = ['item1','item2']
+const person = {
+    name : 'bob'
+}
+
+module.exports.singlePerson = person
+
+---
+
+fun fact:
+
+//mind-grenade.js
+const num1 = 5
+const num2 = 10
+
+function addValues() {
+    console.log(`The sum is : ${num1+num2}`);
+}
+addValues()
+console.log("HELLO EVERYONE");
+
+as u can see nothing is being exported and in the app.js
+will be imported , just mentioning this:
+require('./mind-grenade.js')
+
+So : no output should be there when we run node app.js
+but the output will be:
+The Sum is : 15
+HELLO EVERYONE
+
+so remember, when u import a module, u actually invoke it
+
+
+---
+
+Built - in modules
+
+some of them are: os,path,fs,http modules
+there are many other modules.
+
+
+Example:
+const os = require('os')
+
+console.log(os.type());
+console.log(os.userInfo());
+console.log(os.uptime());
+
+const osdetails = {
+    name : os.type(),
+    release : os.release(),
+    Total_memory : os.totalmem(),
+    freememory : os.freemem()
+}
+
+console.log(osdetails);
+
+
+
+
+---
+path module 
+Examples:
+const path = require('path')
+
+console.log(path.sep);
+//returns the platform specific path
+//segment separator
+//in windows \
+
+
+const filePath = path.join('content','subfolder','test.txt')
+console.log(filePath);
+//output : content\subfolder\test.txt
+
+const baseName = path.basename(filePath)
+console.log(baseName);
+//output : test.txt
+
+const absolute = path.resolve(__dirname,'content','subfolder','test.txt')
+console.log(absolute);
+//path.resolve() method in nodejs is used to create
+//an absolute path by resolving a sequence of path
+//segments.
+//output : C:\node js\content\subfolder\test.txt
+
+
+----
+
+fs module
+
+
+there are two flavors , we can do it 
+async (non-blocking) or sync(blocking)
+
+
+const {readFileSync , writeFileSync } = require('fs')
+//Extracts (destructures) the readFileSync and writeFileSync
+//  functions from the fs module.
+
+//readFileSync: Reads files synchronously
+//  (blocking execution until the file is read).
+
+//writeFileSync: Writes data to a file synchronously
+//  (blocking execution until the writing is complete).
+
+
+const first = readFileSync("check.txt","utf-8")
+console.log(first);
+
+writeFileSync('./check.txt',`Here is the result : ${first}`)
+
+writeFileSync('./check.txt',`Here is the result : ${first}`,{flag: 'a'})
+
+
+
+--async
+example:
+const {readFile , writeFile } = require('fs')
+
+
+readFile("check.txt",'utf-8',(err,result)=> {
+    if(err){
+        console.log(err);
+        return
+    }
+    console.log(result);    
+})
+
+//readFile("check.txt", "utf-8", callback)
+
+// Reads the file check.txt asynchronously.
+// Uses "utf-8" to properly decode text instead of returning a buffer.
+//err: Holds an error object if something goes wrong.
+//result: The file content (as a string if encoding is provided, otherwise as a Buffer).
+// If an error occurs, logs it.
+// Otherwise, logs the file contents.
+
+
+
+good example:
+
+const {readFile , writeFile } = require('fs')
+
+
+readFile("check.txt",'utf-8',(err,result)=> {
+    if(err){
+        console.log(err);
+        return
+    }
+    const first = result
+    console.log(first);
+    
+    readFile("names.js",'utf-8',(err,result)=>{
+    if(err){
+        console.log(err);
+        return
+    }
+    const second = result
+    console.log(second);
+    
+    writeFile('./check.txt',
+        `Here is the result : ${first}     ,     ${second}`,
+        (err,result) =>{
+            if(err){
+                console.log(err);
+                return
+            }
+            console.log(result);  
+        }
+    )
+    })
+})
+
+
+alternatives are using promises and async await

@@ -1,0 +1,7 @@
+Here is the result : HELLO
+     ,     const john = "john"
+const peter = "peter"
+const Afzaal = "AFzaal Ahmed Khan"
+
+
+module.exports = { john, peter }

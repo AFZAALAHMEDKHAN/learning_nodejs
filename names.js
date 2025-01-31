@@ -1,0 +1,6 @@
+const john = "john"
+const peter = "peter"
+const Afzaal = "AFzaal Ahmed Khan"
+
+
+module.exports = { john, peter }
