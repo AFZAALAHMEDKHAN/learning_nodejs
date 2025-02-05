@@ -1,0 +1,132 @@
+events:
+
+const EventEmitter = require('events')
+//EventEmitter is the class
+const customEmitter = new EventEmitter()
+//customEmitter is the object of the EventEmitter class
+customEmitter.on('response',()=>{
+    console.log('data received'); 
+})
+
+customEmitter.on('response',()=>{
+    console.log('some other logic here'); 
+})
+customEmitter.emit('response')
+
+
+-----
+customEmitter.on('response',(name,id)=>{
+    console.log(`data received from ${name} id.no : ${id}`); 
+})
+customEmitter.emit('response','john',34)
+
+
+streams :
+
+writeable,readable,duplex and transform
+
+
+example:
+
+const {createReadStream} = require('fs')
+
+const stream = createReadStream('./4.txt',{highWaterMark:90000,encoding: 'utf8})
+
+stream.on('data',(result)=>{
+    console.log(result);
+    
+})
+
+stream.on('error',(err)=>{
+    console.log(err)
+})
+// When you call createReadStream('./4.txt'),
+//  it creates a readable stream for the file 4.txt.
+//  This stream reads the file in chunks instead of loading the entire file into memory.
+
+// The 'data' event is triggered whenever
+//  a new chunk of data is available, 
+// and Node.js automatically passes that chunk as an 
+// argument (result) to the callback function you provided
+
+
+//default 64kb
+
+
+-----
+
+
+
+let http = require('http')
+let fs = require('fs')
+
+http.createServer((req,res) =>{
+    const fileStream = fs.createReadStream('./4.txt','utf8')
+    fileStream.on('open',()=>{
+        fileStream.pipe(res)
+    })
+    fileStream.on('error',(err)=>{
+        res.end(err)
+    })
+})
+.listen(5000)
+
+//fileStream.pipe(res) is using the pipe() method to
+//  efficiently transfer data from the file stream 
+// (fileStream) to the HTTP response (res).
+
+
+
+------------
+
+cnn.com , we are looking for the server that has the 
+resources  and then that server sends u back the response
+
+done using http protocol.
+
+
+request messages are what the user is sending
+
+response are what the server is sending
+------
+
+request message has :
+ 1. method  url     httpversion
+GET   /contact   HTTP/1.1
+
+ 2. Headers(optional)
+
+ 3. Body(Optional)
+
+------
+
+methods: get---post---put---delete
+get is the default request that the browser performs
+------
+
+
+headers are metainformation about the request.
+
+how do headers look like:
+
+Pragma: no-cache
+Referer: https://www.course-api.com/
+
+----------
+
+if we want to add something to the server, then we would need
+the Body(payload)
+
+
+-----------
+
+Response message :
+
+Httpversion  statuscode statustext
+HTTP/1.1         200      OK
+
+headers: info about our response message
+
+Body:
+
+---------

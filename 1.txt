@@ -306,14 +306,16 @@ writeFileSync('./check.txt',`Here is the result : ${first}`,{flag: 'a'})
 example:
 const {readFile , writeFile } = require('fs')
 
-
+console.log("started a first task")
 readFile("check.txt",'utf-8',(err,result)=> {
     if(err){
         console.log(err);
         return
     }
-    console.log(result);    
+    console.log(result); 
+    console.log("completed")   
 })
+console.log("starting the next task")
 
 //readFile("check.txt", "utf-8", callback)
 

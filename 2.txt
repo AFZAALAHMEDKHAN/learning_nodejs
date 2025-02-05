@@ -57,3 +57,76 @@ const items = [1,[2,[3,[4]]]]
 const newItems = _.flattenDeep(items)
 console.log(newItems);
 
+
+
+we do not prefer to push the packages to our remote repo 
+because it consumes a lot of space
+
+Hence, we mention the node_modules in the .gitignore file
+and when someone clones or uses our repo, they just need to
+run the command npm install which will install all the 
+dependencies from the package.json file.
+
+
+
+how to install dev dependecies:
+npm install dep_name -D 
+
+
+and remember when we run the npm install command,
+both the dependecies and dev dependencies are installed.
+
+npm start:
+he npm start command is used to run the start script 
+defined in the package.json file of a Node.js project.
+
+ex:
+the script block is as follows:
+  "scripts": {
+    "start":"node app.js"
+  }, 
+
+  so when we run the npm start command it will run 
+  the node app.js command which is mentioned in the
+  script block
+
+
+npm run dev:
+
+The command npm run dev is used to start a Node.js 
+application in development mode. 
+However, it only works if you have a dev script
+ defined in your package.json file.
+
+
+Example : "scripts": {
+    "start":"node app.js",
+    "dev": "nodemon app.js"//the command can be anything
+  },
+
+
+
+
+uninstalling a package : 1) npm uninstall bootstrap
+
+2) nuclear way: removing the node_modules and 
+package-lock.json and remove the necessary package from the
+package.json
+and run npm install
+
+
+
+
+installing globally:
+
+npm install -g pack_name
+
+
+
+
+package-lock.json :
+The package-lock.json file is automatically generated 
+when you run npm install. 
+It locks the exact versions of dependencies installed 
+in your project to ensure consistency 
+across different environments.
